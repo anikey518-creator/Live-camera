@@ -31,13 +31,14 @@
         alert("Camera की अनुमति नहीं मिली");
       }
     }
+function stopCamera() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    stream = null;
+    document.getElementById("camera").srcObject = null;
+  }
+}
 
-    function stopCamera() {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-        document.getElementById("camera").srcObject = null;
-      }
-    }
   </script>
 </body>
 </html>
