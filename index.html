@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Camera</title>
+</head>
+
+<body>
+  <h1>Live Camera</h1>
+
+  <button onclick="startCamera()">Camera चालू करें</button>
+  <button onclick="stopCamera()">Camera बंद करें</button>
+
+  <br><br>
+
+  <video id="camera" autoplay playsinline width="100%"></video>
+
+  <script>
+    let stream;
+
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false
+        });
+
+        document.getElementById("camera").srcObject = stream;
+      } catch (error) {
+        alert("Camera की अनुमति नहीं मिली");
+      }
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        document.getElementById("camera").srcObject = null;
+      }
+    }
+  </script>
+</body>
+</html>
